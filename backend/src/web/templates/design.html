@@ -15,9 +15,10 @@
             $scope.nomeParticipante = '';
             $scope.listaParticipantes = [];
             $scope.adicionandoParticipante=false;
+            $scope.salvarParticipanteUrl='{{ salvar_participante_url }}';
             $scope.adicionarParticipante = function (nome) {
                 $scope.adicionandoParticipante=true;
-                RestApi.salvarParticipante(nome).success(function (participante) {
+                RestApi.salvarParticipante($scope.salvarParticipanteUrl,nome).success(function (participante) {
                     $scope.listaParticipantes.unshift(participante);
                     $scope.nomeParticipante = '';
                 }).always(function(){

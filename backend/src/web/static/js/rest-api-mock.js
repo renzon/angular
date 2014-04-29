@@ -42,7 +42,7 @@ mod.factory('RestApi', function ($rootScope) {
 
 
         return {
-            'salvarParticipante': function (nome) {
+            'salvarParticipante': function (url,nome) {
                 id++;
                 return createHttpMock({
                     'id': '' + id,
