@@ -4,25 +4,47 @@
     <title>Exemplo Angular JS</title>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.min.css"/>
     <script type="application/javascript" src="/static/js/angular.min.js"></script>
+    <script type="application/javascript" src="/static/js/rest-api-mock.js"></script>
     <script>
-        var minhaApp = angular.module('minhaApp', [], function ($interpolateProvider) {
+        var minhaApp = angular.module('minhaApp', ['restAjax'], function ($interpolateProvider) {
             $interpolateProvider.startSymbol('{_');
             $interpolateProvider.endSymbol('_}');
         });
+
+        function EventoCtrl($scope,RestApi) {
+            $scope.nomeParticipante = '';
+            $scope.listaParticipantes = [];
+            $scope.adicionandoParticipante=false;
+            $scope.adicionarParticipante = function (nome) {
+                $scope.adicionandoParticipante=true;
+                RestApi.salvarParticipante(nome).success(function (participante) {
+                    $scope.listaParticipantes.unshift(participante);
+                    $scope.nomeParticipante = '';
+                }).always(function(){
+                    $scope.adicionandoParticipante=false;
+                });
+
+            }
+        }
 
     </script>
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-lg-4" ng-app="minhaApp">
+        <div class="col-lg-4" ng-app="minhaApp" ng-controller="EventoCtrl">
             <h1>Cadastro de Evento</h1>
-            {_ 'Python Nordeste ' + nomeParticipante _}
+
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="Nome do Participante" ng-model="nomeParticipante"/>
                 <span class="input-group-btn">
-                  <button class="btn btn-success" type="button"><i class="glyphicon glyphicon-plus"></i></button>
+                  <button ng-click="adicionarParticipante(nomeParticipante)"
+                          ng-hide="adicionandoParticipante" class="btn btn-success" type="button">
+                      <i class="glyphicon glyphicon-plus"></i>
+                  </button>
+                    <img ng-show="adicionandoParticipante" src="/static/img/ajax.gif" />
                 </span>
+
             </div>
             <br/>
             <table class="table table-striped">
@@ -34,23 +56,9 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Fulano</td>
-                    <td>
-                        <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Ciclano</td>
-                    <td>
-                        <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Beltrano</td>
+                <tr ng-repeat="p in listaParticipantes">
+                    <td>{_ p.id _}</td>
+                    <td>{_ p.nome _}</td>
                     <td>
                         <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
                     </td>
