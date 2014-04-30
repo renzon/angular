@@ -1,0 +1,19 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="p in participantes">
+        <td>{_ p.id _}</td>
+        <td>{_ p.nome _}</td>
+        <td>
+            <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
