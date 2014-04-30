@@ -11,7 +11,9 @@
         <td>{_ p.id _}</td>
         <td>{_ p.nome _}</td>
         <td>
-            <button class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+            <button ng-hide="p.deletando" class="btn btn-danger" ng-click="deletar(p)">
+                <i class="glyphicon glyphicon-trash"></i></button>
+            <img ng-show="p.deletando" src="/static/img/ajax.gif"/>
         </td>
     </tr>
     </tbody>
