@@ -42,19 +42,20 @@ mod.factory('RestApi', function ($rootScope) {
 
 
         return {
-            salvarParticipante: function (url,nome) {
+            salvarParticipante: function (url, nome) {
                 id++;
                 return createHttpMock({
                     'id': '' + id,
                     'nome': nome,
-                    'deletarPath': '/apagar/' + id
+                    'deletarPath': '/apagar/' + id,
+                    'editarPath': '/editar/'
                 });
 
             },
-            deletarParticipante:function(participante){
+            deletarParticipante: function (participante) {
                 return createHttpMock();
             },
-            editarParticipante:function(participante){
+            editarParticipante: function (participante) {
                 return createHttpMock();
             }
 
