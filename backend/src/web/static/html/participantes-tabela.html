@@ -9,7 +9,17 @@
     <tbody>
     <tr ng-repeat="p in participantes">
         <td>{_ p.id _}</td>
-        <td>{_ p.nome _}</td>
+        <td><span ng-hide="p.editando" ng-click="p.editando=true">{_ p.nome _}</span>
+            <span ng-show="p.editando" class="input-group">
+                <input type="text" class="form-control"
+                       ng-model="p.nome"/>
+                <span class="input-group-btn">
+                  <button ng-hide="p.salvandoEdicao" ng-click="editar(p)"
+                           class="btn btn-success" type="button">
+                      <i class="glyphicon glyphicon-pencil"></i>
+                  </button>
+                    <img ng-show="p.salvandoEdicao" src="/static/img/ajax.gif"/>
+                </span></span></td>
         <td>
             <button ng-hide="p.deletando" class="btn btn-danger" ng-click="deletar(p)">
                 <i class="glyphicon glyphicon-trash"></i></button>

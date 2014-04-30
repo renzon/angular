@@ -53,6 +53,9 @@ mod.factory('RestApi', function ($rootScope) {
             },
             deletarParticipante:function(participante){
                 return createHttpMock();
+            },
+            editarParticipante:function(participante){
+                return createHttpMock();
             }
 
         };

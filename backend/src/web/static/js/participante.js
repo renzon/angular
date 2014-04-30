@@ -25,6 +25,14 @@ gerenciadorDeParticipante.directive('participantestabela', function () {
                     participante.deletando = false;
                 });
             }
+
+            $scope.editar = function (participante) {
+                participante.salvandoEdicao = true;
+                RestApi.editarParticipante(participante).always(function () {
+                    participante.editando = false;
+                    participante.salvandoEdicao = false;
+                });
+            }
         }
 
     }
