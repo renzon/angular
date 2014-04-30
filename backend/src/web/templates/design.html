@@ -17,8 +17,15 @@
             $scope.listaParticipantes = [];
             $scope.adicionandoParticipante = false;
             $scope.salvarParticipanteUrl = '{{ salvar_participante_url }}';
+            $scope.carregandoParticipantes = true;
+            RestApi.listarParticipantes('{{ listar_participantes_url }}').success(function (participantes) {
+                $scope.listaParticipantes = participantes
+            }).always(function () {
+                $scope.carregandoParticipantes = false;
+            });
             $scope.adicionarParticipante = function (nome) {
                 $scope.adicionandoParticipante = true;
+
                 RestApi.salvarParticipante($scope.salvarParticipanteUrl, nome).success(function (participante) {
                     $scope.listaParticipantes.unshift(participante);
                     $scope.nomeParticipante = '';
@@ -37,8 +44,10 @@
         <div class="col-lg-4" ng-app="minhaApp" ng-controller="EventoCtrl">
             <h1>Cadastro de Evento</h1>
 
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Nome do Participante" ng-model="nomeParticipante"/>
+            <div ng-hide="carregandoParticipantes">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Nome do Participante"
+                           ng-model="nomeParticipante"/>
                 <span class="input-group-btn">
                   <button ng-click="adicionarParticipante(nomeParticipante)"
                           ng-hide="adicionandoParticipante" class="btn btn-success" type="button">
@@ -47,9 +56,13 @@
                     <img ng-show="adicionandoParticipante" src="/static/img/ajax.gif"/>
                 </span>
 
+                </div>
+                <br/>
+                <participantestabela participantes="listaParticipantes"></participantestabela>
             </div>
-            <br/>
-            <participantestabela participantes="listaParticipantes"></participantestabela>
+            <div ng-show="carregandoParticipantes">
+                <img  src="/static/img/ajax.gif"/>
+            </div>
         </div>
     </div>
 </div>

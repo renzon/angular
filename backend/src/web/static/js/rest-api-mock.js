@@ -38,7 +38,7 @@ mod.factory('RestApi', function ($rootScope) {
 
 
         }
-        var id = 0;
+        var id = 3;
 
 
         return {
@@ -57,6 +57,28 @@ mod.factory('RestApi', function ($rootScope) {
             },
             editarParticipante: function (participante) {
                 return createHttpMock();
+            },
+            listarParticipantes: function (url) {
+                return createHttpMock([
+                    {
+                        'id': '1',
+                        'nome': 'Fulano',
+                        'deletarPath': '/apagar/',
+                        'editarPath': '/editar/'
+                    },
+                    {
+                        'id': '2',
+                        'nome': 'Ciclano',
+                        'deletarPath': '/apagar/',
+                        'editarPath': '/editar/'
+                    },
+                    {
+                        'id': '3',
+                        'nome': 'Beltrano',
+                        'deletarPath': '/apagar/',
+                        'editarPath': '/editar/'
+                    }
+                ]);
             }
 
         };
